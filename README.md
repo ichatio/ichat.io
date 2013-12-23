@@ -1,0 +1,4 @@
+webirc
+======
+
+Client web IRC
