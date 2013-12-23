@@ -1,5 +1,5 @@
 exports = config = {
-  server: 'irc.freenode.net',
+  server: 'irc.irclife.com.br',
   port: 6667,
-  channel: '#coljstest'
+  channel: '#irclife'
 };
