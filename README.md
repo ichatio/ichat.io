@@ -2,6 +2,10 @@
 
 A Web IRC client written in Node.js using Express.js and socket.io
 
+## Install
+
+    npm install
+
 ---
 ### The MIT License (MIT)
 Copyright (c) 2013 Julian Duque
