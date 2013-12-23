@@ -33,6 +33,7 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
+app.post('/', routes.index);
 
 require('./lib/irc')(io);
 
