@@ -37,5 +37,5 @@ app.get('/', routes.index);
 require('./lib/irc')(io);
 
 server.listen(app.get('port'), function(){
-  console.log("WebIrc.js server is listening on port " + app.get('port'));
+  console.log("IRClife WebIRC server is listening on port " + app.get('port'));
 });
