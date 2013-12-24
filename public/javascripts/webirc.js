@@ -129,9 +129,26 @@
         var nicks = channels[target].nicks;
 
         $('#users').empty();
+        var nul = $('<ul>');
         for(var nick in nicks) {
-          $('#users').append('<p>' + nicks[nick] + nick + '</p>');
+          var nli = $("<li>")
+          if(nicks[nick] == "@"){
+            var nick_class = "op";
+          }else if(nicks[nick] == "+"){
+            var nick_class = "voice";
+          }else{
+            var nick_class = "user";
+          }
+          nli
+            .addClass(nick_class)
+            .text(nicks[nick] + nick)
+            .appendTo(nul)
         }
+        $(nul).children("li").sort(function(a, b) {
+          return $(a).text().toUpperCase().localeCompare($(b).text().toUpperCase());
+        }).appendTo(nul);
+
+        $('#users').append(nul);
 
         $('#users').show();
       } else if(target == 'status') {
