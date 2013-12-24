@@ -32,8 +32,7 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', routes.index);
-app.post('/', routes.index);
+app.all('/', routes.index);
 
 require('./lib/irc')(io);
 
