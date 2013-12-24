@@ -87,16 +87,22 @@
         var code = (e.keyCode ? e.keyCode : e.which);
         if(code == 13) {
           var message = $(this).val();
-          socket.emit('say', currentChannel, message);
-          $(this).val('');
+          if(message[0] == "/"){
+            var socket = io.connect();
+            var command = message.split(" ")[0].replace("/", "");
+            $(this).val('');
+          } else {
+            socket.emit('say', currentChannel, message);
+            $(this).val('');
 
-          // Add message
-          var msgSource = $('#message-template').html();
-          var msgTemplate = Handlebars.compile(msgSource);
-          var msg = msgTemplate({ nickname: nickname, message: message });
+            // Add message
+            var msgSource = $('#message-template').html();
+            var msgTemplate = Handlebars.compile(msgSource);
+            var msg = msgTemplate({ nickname: nickname, message: message });
 
-          $(currentChannel).append(msg);
-          $(currentChannel).get(0).scrollTop = 10000000;
+            $(currentChannel).append(msg);
+            $(currentChannel).get(0).scrollTop = 10000000;
+          }
         }
       });
     });
