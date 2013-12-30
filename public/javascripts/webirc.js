@@ -4,6 +4,7 @@
   var channels = {};
   var privates = [];
   var nickname = null;
+  var joinchannel = null;
 
   $(document).ready(function() {
     $('#login').reveal();
@@ -22,10 +23,11 @@
       $('#login').trigger('reveal:close');
 
       nickname = $('#nickname').val();
+      joinchannel = $('#channel').val();
 
       var socket = io.connect();
 
-      socket.emit('connect', nickname, '', '');
+      socket.emit('connect', nickname, '', '', joinchannel);
 
       socket.on('join', function(channel, nick, message) {
         if(nick === nickname) {
@@ -47,6 +49,7 @@
           var win = winTemplate({ target: channel });
 
           $('#windows').append(win);
+          window.setTimeout(function(){$('#tabs a').click();}, 2000);
         }
       });
 
