@@ -116,7 +116,6 @@
         if(code == 13) {
           var message = $(this).val();
           if(message[0] == "/"){
-            var socket = io.connect();
             var command = message.split(" ")[0].replace("/", "");
             $(this).val('');
           } else {
@@ -191,7 +190,6 @@
 
   function scrollBottom(dom_object)
   {
-    console.log(dom_object.scrollHeight)
     dom_object.scrollTop = dom_object.scrollHeight;
   }
 
