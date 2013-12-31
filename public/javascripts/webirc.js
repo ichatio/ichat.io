@@ -39,7 +39,9 @@
           var tabTemplate = Handlebars.compile(tabSource);
           var tab = tabTemplate({ target: channel });
 
-          $('#tabs').append(tab);
+          if (!document.querySelector("#tabs a[data-target='"+channel+"']")) {
+            $('#tabs').append(tab);
+          }
           activateTabs();
 
           // Add window
@@ -76,14 +78,37 @@
             var msg = msgTemplate({ nickname: from, message: text });
 
             $(to).append(msg);
-            $(to).get(0).scrollTop = 10000000;
+            scrollBottom($(to).get(0));
           }
         }
       });
 
       socket.on('info', function(info) {
         $('#status').append('<pre>' + info + '</pre>');
-        $("#status").get(0).scrollTop = 10000000;
+        scrollBottom($("#status").get(0));
+      });
+
+      socket.on("disconnect", function() {
+        $("#status").append($('<pre>').append("<b>connection closed unexpectedly</b>"));
+        scrollBottom($("#status").get(0));
+      });
+
+      socket.on('reconnect', function () {
+        $("#status").append($('<pre>').append("reconnected to the server"));
+        socket.emit('connect', nickname, '', '', joinchannel);
+        scrollBottom($("#status").get(0));
+
+      });
+
+      socket.on('reconnecting', function () {
+        $("#status").append($('<pre>').append("attempting to re-connect to the server"));
+        scrollBottom($("#status").get(0));
+      });
+
+      socket.on('error', function (e) {
+        console.log(e.args);
+        $("#status").append($('<pre>').append('Error: ' + e.command));
+        scrollBottom($("#status").get(0));
       });
 
       $('#message-text').keydown(function(e) {
@@ -104,7 +129,7 @@
             var msg = msgTemplate({ nickname: nickname, message: message });
 
             $(currentChannel).append(msg);
-            $(currentChannel).get(0).scrollTop = 10000000;
+            scrollBottom($(currentChannel).get(0));
           }
         }
       });
@@ -162,6 +187,12 @@
       }
 
     });
+  }
+
+  function scrollBottom(dom_object)
+  {
+    console.log(dom_object.scrollHeight)
+    dom_object.scrollTop = dom_object.scrollHeight;
   }
 
 })(jQuery, this);
