@@ -17,6 +17,18 @@
       }
     });
 
+    var _notification = function(text, title){
+      title = title || 'IRClife'
+      if (window.webkitNotifications) {
+        if (window.webkitNotifications.checkPermission() != 0) {
+          window.webkitNotifications.requestPermission();
+        }
+        window.webkitNotifications.createNotification('/favicon.ico', title, text).show();
+      } else {
+        console.log("Notifications are not supported for this Browser/OS version yet.");
+      }
+    }
+
     $('#connect').click(function(e) {
       e.preventDefault();
 
@@ -89,12 +101,16 @@
       });
 
       socket.on("disconnect", function() {
-        $("#status").append($('<pre>').append("<b>connection closed unexpectedly</b>"));
+        var msg = "connection closed unexpectedly";
+        _notification(msg);
+        $("#status").append($('<pre>').append("<b>"+ msg +"</b>"));
         scrollBottom($("#status").get(0));
       });
 
       socket.on('reconnect', function () {
-        $("#status").append($('<pre>').append("reconnected to the server"));
+        var msg = "reconnected to the server";
+        _notification(msg);
+        $("#status").append($('<pre>').append(msg));
         socket.emit('connect', nickname, '', '', joinchannel);
         scrollBottom($("#status").get(0));
 
