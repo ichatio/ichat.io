@@ -107,7 +107,9 @@
 
       socket.on('error', function (e) {
         console.log(e.args);
-        $("#status").append($('<pre>').append('Error: ' + e.command));
+        if(e.command != "undefined"){
+          $("#status").append($('<pre>').append('Error: ' + e.command));
+        }
         scrollBottom($("#status").get(0));
       });
 
