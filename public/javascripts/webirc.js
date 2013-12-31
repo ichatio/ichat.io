@@ -191,7 +191,6 @@
 
   function scrollBottom(dom_object)
   {
-    console.log(dom_object.scrollHeight)
     dom_object.scrollTop = dom_object.scrollHeight;
   }
 
