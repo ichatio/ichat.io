@@ -64,6 +64,10 @@
 
           $('#windows').append(win);
           window.setTimeout(function(){$('#tabs a').click();}, 2000);
+        } else {
+          if (channels[channel]) {
+            channels[channel].nicks[nick] = "";
+          }
         }
       });
 
