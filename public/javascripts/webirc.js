@@ -67,6 +67,7 @@
         } else {
           if (channels[channel]) {
             channels[channel].nicks[nick] = "";
+            updateUserlist(channels[channel].nicks);
           }
         }
       });
@@ -106,18 +107,17 @@
 
       socket.on("disconnect", function() {
         var msg = "connection closed unexpectedly";
-        _notification(msg);
         $("#status").append($('<pre>').append("<b>"+ msg +"</b>"));
         scrollBottom($("#status").get(0));
+        _notification(msg);
       });
 
       socket.on('reconnect', function () {
         var msg = "reconnected to the server";
-        _notification(msg);
         $("#status").append($('<pre>').append(msg));
         socket.emit('connect', nickname, '', '', joinchannel);
         scrollBottom($("#status").get(0));
-
+        _notification(msg);
       });
 
       socket.on('reconnecting', function () {
@@ -160,6 +160,31 @@
 
   });
 
+
+  function updateUserlist(nicks) {
+    $('#users').empty();
+    var nul = $('<ul>');
+    for(var nick in nicks) {
+      var nli = $("<li>")
+      if(nicks[nick] == "@"){
+        var nick_class = "op";
+      }else if(nicks[nick] == "+"){
+        var nick_class = "voice";
+      }else{
+        var nick_class = "user";
+      }
+      nli
+        .addClass(nick_class)
+        .text(nicks[nick] + nick)
+        .appendTo(nul)
+    }
+    $(nul).children("li").sort(function(a, b) {
+      return $(a).text().toUpperCase().localeCompare($(b).text().toUpperCase());
+    }).appendTo(nul);
+
+    $('#users').append(nul);
+  }
+
   function activateTabs() {
     $('.tab').unbind('click');
 
@@ -174,31 +199,8 @@
 
       if(~target.indexOf('#')) {
         $(target).show();
-
         var nicks = channels[target].nicks;
-
-        $('#users').empty();
-        var nul = $('<ul>');
-        for(var nick in nicks) {
-          var nli = $("<li>")
-          if(nicks[nick] == "@"){
-            var nick_class = "op";
-          }else if(nicks[nick] == "+"){
-            var nick_class = "voice";
-          }else{
-            var nick_class = "user";
-          }
-          nli
-            .addClass(nick_class)
-            .text(nicks[nick] + nick)
-            .appendTo(nul)
-        }
-        $(nul).children("li").sort(function(a, b) {
-          return $(a).text().toUpperCase().localeCompare($(b).text().toUpperCase());
-        }).appendTo(nul);
-
-        $('#users').append(nul);
-
+        updateUserlist(nicks);
         $('#users').show();
       } else if(target == 'status') {
         $('#status').show();
