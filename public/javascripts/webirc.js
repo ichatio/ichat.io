@@ -72,6 +72,13 @@
         }
       });
 
+      socket.on('quit', function(nick, channel, message) {
+        if (channels[channel]) {
+          delete channels[channel].nicks[nick];
+          updateUserlist(channels[channel].nicks)
+        }
+      });
+
       socket.on('topic', function(channel, topic, nick, message) {
         //console.log(channel, topic, nick, message);
         if(channels[channel]) {
