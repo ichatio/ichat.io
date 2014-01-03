@@ -7,7 +7,7 @@ block content
         h2= title
   .row.bottom-space
     #tabs.small-9.columns
-      a(href='#status', data-target='status').label.tab Status
+      a(href='#status', data-target='status').label.tab #{__("Status")}
   .row
     #windows.small-9.columns
       #status.window
@@ -16,22 +16,22 @@ block content
   .row
     .small-9.columns
       #message
-        input(id='message-text', type='text', placeholder='Enter message')
+        input(id='message-text', type='text', placeholder='#{__("Enter message")}')
 
   #login.reveal-modal.medium(data-reveal)
-    h3 Connect to #{title}
-    p.lead Please enter your information below
+    h3 #{__("Connect to %s", title)}
+    p.lead #{__("Please enter your information below")}
     form
-      input(id='nickname', type='text', placeholder='Nickname')
+      input(id='nickname', type='text', placeholder='#{__("Nickname")}')
       label(for='authenticate')
         input(id='authenticate', type='checkbox')
-        span.custom.checkbox  Authenticate to services
+        span.custom.checkbox  #{__("Authenticate to services")}
       fieldset#services.hide
-        legend Enter your credentials
-        input(type='text', placeholder='Username')
-        input(type='password', placeholder='Password')
+        legend #{__("Enter your credentials")}
+        input(type='text', placeholder='#{__("Username")}')
+        input(type='password', placeholder='#{__("Password")}')
         input(type='text', placeholder='#irclife', id='channel', value="#{joinchannel}")
-      button#connect(type='submit').button Connect
+      button#connect(type='submit').button #{__("Connect")}
     a.close-reveal-modal &#215;
 
   #window-template.hide
