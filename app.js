@@ -1,9 +1,5 @@
-
-/**
- * Module dependencies.
- */
-
 var express = require('express')
+  , i18n = require("i18n")
   , routes = require('./routes')
   , http = require('http')
   , path = require('path');
@@ -14,6 +10,12 @@ var app = express()
 
 // Load Config
 require('./config');
+
+i18n.configure({
+  locales: ['en', 'pt_BR'],
+  defaultLocale: 'en',
+  directory: __dirname + '/locales'
+});
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -26,6 +28,12 @@ app.configure(function(){
   app.use(app.router);
   app.use(require('stylus').middleware(__dirname + '/assets'));
   app.use(express.static(path.join(__dirname, 'assets')));
+  app.use(function(req, res, next) {
+    res.locals.__ = res.__ = function() {
+      return i18n.__.apply(req, arguments);
+    };
+    next();
+  });
 });
 
 app.configure('development', function(){
