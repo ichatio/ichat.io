@@ -1,1 +1,13 @@
-{}
+{
+	"ichat.io server is listening on port %s": "ichat.io server is listening on port %s",
+	"Nickname": "Apelido",
+	"Authenticate to services": "Usar usuário registrado",
+	"Enter your credentials": "Entre informações",
+	"Username": "Usuário",
+	"Password": "Senha",
+	"Connect": "Conectar",
+	"Please enter your information below": "Por favor, digite suas informações abaixo",
+	"Connect to %s": "Conectando no %s",
+	"Enter message": "Digite sua mensagem",
+	"Status": "Status"
+}
