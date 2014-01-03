@@ -7,7 +7,7 @@
   var joinchannel = null;
 
   $(document).ready(function() {
-    $('#login').reveal();
+    $('#login').foundation('reveal', 'open')
 
     $('#authenticate').change(function() {
       if($(this).is(':checked')) {
@@ -32,7 +32,7 @@
     $('#connect').click(function(e) {
       e.preventDefault();
 
-      $('#login').trigger('reveal:close');
+      $('#login').foundation('reveal', 'close')
 
       nickname = $('#nickname').val();
       joinchannel = $('#channel').val();
