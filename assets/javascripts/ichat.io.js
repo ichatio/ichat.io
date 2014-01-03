@@ -7,7 +7,7 @@
   var joinchannel = null;
 
   $(document).ready(function() {
-    $('#login').reveal();
+    $('#login').foundation('reveal', 'open')
 
     $('#authenticate').change(function() {
       if($(this).is(':checked')) {
@@ -18,7 +18,7 @@
     });
 
     var _notification = function(text, title){
-      title = title || 'IRClife'
+      title = title || 'ichat.io'
       if (window.webkitNotifications) {
         if (window.webkitNotifications.checkPermission() != 0) {
           window.webkitNotifications.requestPermission();
@@ -32,7 +32,7 @@
     $('#connect').click(function(e) {
       e.preventDefault();
 
-      $('#login').trigger('reveal:close');
+      $('#login').foundation('reveal', 'close')
 
       nickname = $('#nickname').val();
       joinchannel = $('#channel').val();

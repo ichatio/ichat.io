@@ -2,23 +2,23 @@ extends layout
 
 block content
   .row.bottom-space
-    .twelve.columns
+    .small-12.columns
       #title
         h2= title
   .row.bottom-space
-    #tabs.nine.columns
+    #tabs.small-9.columns
       a(href='#status', data-target='status').label.tab Status
   .row
-    #windows.nine.columns
+    #windows.small-9.columns
       #status.window
-    .three.columns
+    .small-3.columns
       #users.window.hide
   .row
-    .nine.columns
+    .small-9.columns
       #message
         input(id='message-text', type='text', placeholder='Enter message')
 
-  #login.reveal-modal.medium
+  #login.reveal-modal.medium(data-reveal)
     h3 Connect to #{title}
     p.lead Please enter your information below
     form
