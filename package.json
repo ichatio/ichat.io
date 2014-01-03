@@ -1,5 +1,5 @@
 {
-  "name": "webirc",
+  "name": "ichat.io",
   "version": "0.1.3",
   "private": true,
   "scripts": {
@@ -13,7 +13,6 @@
     "irc": "~0.3.5",
     "bower": "~1.2.8"
   },
-  "subdomain": "webircjs",
   "engines": {
     "node": "0.8.x"
   }
