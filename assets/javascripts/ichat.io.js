@@ -18,7 +18,7 @@
     });
 
     var _notification = function(text, title){
-      title = title || 'IRClife'
+      title = title || 'ichat.io'
       if (window.webkitNotifications) {
         if (window.webkitNotifications.checkPermission() != 0) {
           window.webkitNotifications.requestPermission();

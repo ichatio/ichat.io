@@ -1,12 +1,10 @@
-
-/*
- * GET home page.
- */
-
 exports.index = function(req, res){
-  joinchannel = req.query.channel || "irclife";
+  joinchannel = req.query.channel || config.channel;
+  if(joinchannel[0] != "#"){
+    joinchannel = "#" + joinchannel;
+  }
   res.render('index', {
-    title: joinchannel + ' Chat',
-    joinchannel: "#" + joinchannel
+    title: joinchannel + ' ichat.io',
+    joinchannel: joinchannel
   });
 };
