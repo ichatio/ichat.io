@@ -75,6 +75,13 @@
       socket.on('quit', function(nick, channel, message) {
         if (channels[channel]) {
           delete channels[channel].nicks[nick];
+          updateUserlist(channels[channel].nicks);
+        }
+      });
+
+      socket.on('part', function(nick, channel, message) {
+        if (channels[channel]) {
+          delete channels[channel].nicks[nick];
           updateUserlist(channels[channel].nicks)
         }
       });
