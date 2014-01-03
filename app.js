@@ -14,6 +14,7 @@ require('./config');
 i18n.configure({
   locales: ['en', 'pt_BR'],
   defaultLocale: 'en',
+  cookie: 'locale',
   directory: __dirname + '/locales'
 });
 
@@ -24,16 +25,12 @@ app.configure(function(){
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
+  app.use(express.cookieParser());
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(require('stylus').middleware(__dirname + '/assets'));
   app.use(express.static(path.join(__dirname, 'assets')));
-  app.use(function(req, res, next) {
-    res.locals.__ = res.__ = function() {
-      return i18n.__.apply(req, arguments);
-    };
-    next();
-  });
+  app.use(i18n.init);
 });
 
 app.configure('development', function(){
@@ -45,5 +42,5 @@ app.all('/', routes.index);
 require('./lib/irc')(io);
 
 server.listen(app.get('port'), function(){
-  console.log("ichat.io server is listening on port " + app.get('port'));
+  console.log(i18n.__("ichat.io server is listening on port %s", app.get('port')));
 });
