@@ -39,6 +39,7 @@
       if (/\w\s\w/.test(nickname)) {
         // Improve alert system: add flash message, or something.
         alert('Spaces are not allowed in nicknames.');
+        $('#nickname').focus();
         return;
       }
 
