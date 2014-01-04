@@ -27,7 +27,18 @@
       } else {
         console.log("Notifications are not supported for this Browser/OS version yet.");
       }
-    }
+    };
+
+    var urlify = function(text){
+      var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+      return text.replace(urlRegex, function(url) {
+        if ((url.indexOf(".jpg") > 0) || (url.indexOf(".png") > 0) || (url.indexOf(".gif") > 0)) {
+          return '<a href="' + url + '" target="_blank"><img style="width: 100px; border: 0px; -moz-border-radius: 5px; border-radius: 5px;" src="' + url + '" /></a>';
+        } else {
+          return '<a href="' + url + '" target="_blank">' + url + '</a>';
+        }
+      });
+    };
 
     $('#connect').click(function(e) {
       e.preventDefault();
@@ -116,7 +127,7 @@
             var msgTemplate = Handlebars.compile(msgSource);
             var msg = msgTemplate({ nickname: from, message: text });
 
-            $(to).append(msg);
+            $(to).append(urlify(msg));
             scrollBottom($(to).get(0));
           }
         }
@@ -169,9 +180,9 @@
             // Add message
             var msgSource = $('#message-template').html();
             var msgTemplate = Handlebars.compile(msgSource);
-            var msg = msgTemplate({ nickname: nickname, message: message });
+            var msg = msgTemplate({nickname: nickname, message: message});
 
-            $(currentChannel).append(msg);
+            $(currentChannel).append(urlify(msg));
             scrollBottom($(currentChannel).get(0));
           }
         }
