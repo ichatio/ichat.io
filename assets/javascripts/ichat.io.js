@@ -32,11 +32,18 @@
     $('#connect').click(function(e) {
       e.preventDefault();
 
-      $('#login').foundation('reveal', 'close')
-
       nickname = $('#nickname').val();
       joinchannel = $('#channel').val();
+      
+      // Plain vanilla validation, for now.
+      if (/\w\s\w/.test(nickname)) {
+        // Improve alert system: add flash message, or something.
+        alert('Spaces are not allowed in nicknames.');
+        return;
+      }
 
+      $('#login').foundation('reveal', 'close')
+      
       var socket = io.connect();
 
       socket.emit('connect', nickname, '', '', joinchannel);

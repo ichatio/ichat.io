@@ -9,5 +9,6 @@
 	"Please enter your information below": "Please enter your information below",
 	"Connect to %s": "Connect to %s",
 	"Enter message": "Enter message",
-	"Status": "Status"
+	"Status": "Status",
+	"user disconnected": "user disconnected"
 }
