@@ -24,6 +24,26 @@
           window.webkitNotifications.requestPermission();
         }
         window.webkitNotifications.createNotification('/favicon.ico', title, text).show();
+      } else if ("Notification" in window) {
+        // Firefox?
+        if (Notification.permission === "granted") {
+            var notification = new Notification(title, {
+              icon: '/favicon.ico',
+              body: text,
+            });
+        }
+        else if (Notification.permission === 'default') {
+          Notification.requestPermission(function (permission) {
+            if (permission === "granted") {
+              // is this D.R.Y.?
+              var notification = new Notification(title, {
+                icon: '/favicon.ico',
+                body: text,
+              });
+            }
+          });
+        }
+        // else {} // permission === 'denied' → give up?
       } else {
         console.log("Notifications are not supported for this Browser/OS version yet.");
       }
@@ -54,7 +74,7 @@
         return;
       }
 
-      $('#login').foundation('reveal', 'close')
+      $('#login').foundation('reveal', 'close');
       
       var socket = io.connect();
 
