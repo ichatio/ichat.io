@@ -16,5 +16,11 @@
   },
   "engines": {
     "node": "0.8.x"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-concurrent": "~0.4.3",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-nodemon": "~0.2.0"
   }
 }
