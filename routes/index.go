@@ -1,10 +1,14 @@
 package routes
 
 import (
-	"html/template"
 	"net/http"
 	"strings"
 )
+
+type Channel struct {
+	Title       string
+	Joinchannel string
+}
 
 func Index(w http.ResponseWriter, r *http.Request) {
 	joinchannel := Config.IRC.Channel
@@ -13,10 +17,16 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		joinchannel = "#" + joinchannel[:]
 	}
 
-	tmpl := template.New("views/index.jade")
-	err := tmpl.ExecuteTemplate(w, "views/index.jade", nil)
+	channel := &Channel{
+		Title:       joinchannel + " ichat.io",
+		Joinchannel: joinchannel,
+	}
+
+	err := templates.ExecuteTemplate(w, "index", channel)
+
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
 }
