@@ -1,0 +1,55 @@
+{{ define "index" }}
+{{ template "header"}}
+<div id="container">
+        <div class="row bottom-space">
+      <div class="small-12 columns">
+        <div id="title">
+          <h2>{{.Title}}</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row bottom-space">
+      <div id="tabs" class="small-9 columns"><a href="#status" data-target="status" class="label tab">Status</a></div>
+    </div>
+    <div class="row">
+      <div id="windows" class="small-9 columns">
+        <div id="status" class="window"></div>
+      </div>
+      <div class="small-3 columns">
+        <div id="users" class="window hide"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-9 columns">
+        <div id="message">
+          <input id="message-text" type="text" placeholder="Enter message">
+        </div>
+      </div>
+    </div>
+    <div id="login" data-reveal class="reveal-modal medium">
+      <h3>{{.Title}}</h3>
+      <p class="lead">Please enter your information below</p>
+      <form>
+        <input id="nickname" type="text" placeholder="Nickname">
+        <label for="authenticate">
+          <input id="authenticate" type="checkbox"><span class="custom checkbox"> Authenticate to services</span>
+        </label>
+        <fieldset id="services" class="hide">
+          <legend>Enter your credentials</legend>
+          <input type="text" placeholder="Username">
+          <input type="password" placeholder="Password">
+          <input type="text" placeholder="#irclife" id="channel" value="{{.Joinchannel}}">
+        </fieldset>
+        <button id="connect" type="submit" class="button">Connect</button>
+      </form><a class="close-reveal-modal">&#215;</a>
+    </div>
+    <div id="window-template" class="hide">
+      <div id="target" class="window hide"></div>
+    </div>
+    <div id="message-template" class="hide">
+      <pre class="message">&lt;nickname&gt; message</pre>
+    </div>
+    <div id="tab-template" class="hide"><a href="#" data-target="target" class="label secondary tab">target</a></div>
+</div>
+{{template "footer"}}
+{{end}}
